@@ -9,7 +9,7 @@ public class Program
 
     static object lockConsole = new object();
 
-    static int numGarcons = 5;
+    static int numGarcons = 4;
     static int numChefs = 3;
 
     static void Main()
