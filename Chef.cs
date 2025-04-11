@@ -8,11 +8,6 @@ public class Chef
     private string[] nomesPratos = {"executivo", "italiano", "especial"};
     private BlockingCollection<(int pedido, int prato)> pedidos;
 
-    static object arrozLock = new object();
-    static object carneLock = new object();
-    static object macarraoLock = new object();
-    static object molhoLock = new object();
-
     static Ingrediente arroz = new Ingrediente(3);
     static Ingrediente carne = new Ingrediente(2);
     static Ingrediente macarrao = new Ingrediente(4);
@@ -31,11 +26,11 @@ public class Chef
 
         foreach (var (pedido, prato) in pedidos.GetConsumingEnumerable())
         {
-            Program.ConsoleLock($"[Chef {idChefe}] Iniciando o prato {nomesPratos[prato-1]} do pedido {pedido}!", ConsoleColor.Red);
+            Program.ConsoleLock($"[Chef {idChefe}] Iniciando o prato {Program.nomesPratos[prato-1]} do pedido {pedido}!", ConsoleColor.Red);
 
             fazPrato(prato);
 
-            Program.ConsoleLock($"[Chef {idChefe}] Finalizei o prato {nomesPratos[prato-1]} do pedido {pedido}!", ConsoleColor.Red);
+            Program.ConsoleLock($"[Chef {idChefe}] Finalizei o prato {Program.nomesPratos[prato-1]} do pedido {pedido}!", ConsoleColor.Red);
         }
     }
 
@@ -44,7 +39,7 @@ public class Chef
         switch(tipo)
         {
             case 1:
-                lock(arrozLock){
+                lock(arroz.lockIngrediente){
                     if (arroz.quantidade == 0){
                         Program.ConsoleLock($"[Chef {idChefe}] Preparando arroz!", ConsoleColor.Green);
                         arroz.preparar();
@@ -53,7 +48,7 @@ public class Chef
                         arroz.quantidade--;
                 }
 
-                lock(carneLock){
+                lock(carne.lockIngrediente){
                     if (carne.quantidade == 0){
                         Program.ConsoleLock($"[Chef {idChefe}] Preparando carne!", ConsoleColor.Green);
                         carne.preparar();
@@ -67,7 +62,7 @@ public class Chef
                 break;
 
             case 2:
-                lock(macarraoLock){
+                lock(macarrao.lockIngrediente){
                     if (macarrao.quantidade == 0){
                         Program.ConsoleLock($"[Chef {idChefe}] Preparando macarrao!", ConsoleColor.Green);
                         macarrao.preparar();
@@ -76,7 +71,7 @@ public class Chef
                         macarrao.quantidade--;
                 }
 
-                lock(molhoLock){
+                lock(molho.lockIngrediente){
                     if (molho.quantidade == 0){
                         Program.ConsoleLock($"[Chef {idChefe}] Preparando molho!", ConsoleColor.Green);
                         molho.preparar();
@@ -90,7 +85,7 @@ public class Chef
                 break;
                 
             case 3:
-                lock(arrozLock)
+                lock(arroz.lockIngrediente)
                 {
                     if (arroz.quantidade == 0)
                     {
@@ -101,7 +96,7 @@ public class Chef
                         arroz.quantidade--;
                 }
 
-                lock(carneLock){
+                lock(carne.lockIngrediente){
                     if (carne.quantidade == 0){
                         Program.ConsoleLock($"[Chef {idChefe}] Preparando carne!", ConsoleColor.Green);
                         carne.preparar();
@@ -109,7 +104,7 @@ public class Chef
                     }
                         carne.quantidade--;
                 }
-                lock(molhoLock){
+                lock(molho.lockIngrediente){
                     if (molho.quantidade == 0){
                         Program.ConsoleLock($"[Chef {idChefe}] Preparando molho!", ConsoleColor.Green);
                         molho.preparar();

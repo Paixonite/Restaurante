@@ -6,6 +6,7 @@ public class Ingrediente
 {
     public int quantidade;
     public int porcoesPorPreparo;
+    static object lockIngrediente = new object();
     
     public Ingrediente(int porcoesPorPreparo)
     {

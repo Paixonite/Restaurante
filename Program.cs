@@ -8,8 +8,9 @@ public class Program
     static BlockingCollection<(int pedido, int prato)> pedidos = new BlockingCollection<(int pedido, int prato)>();
 
     static object lockConsole = new object();
+    public static string[] nomesPratos = { "executivo", "italiano", "especial" };
 
-    static int numGarcons = 4;
+    static int numGarcons = 3;
     static int numChefs = 3;
 
     static void Main()
